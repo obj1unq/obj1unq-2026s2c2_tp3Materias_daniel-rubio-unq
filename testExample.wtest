@@ -1,9 +1,5 @@
 import example.*
 
-
-
-
-
 // Carreras
 const programacion = new Carrera(nombre = "Programación")
 const tuess = new Carrera(nombre = "TUESS")
@@ -24,7 +20,7 @@ const tys = new Materia(nombre = "Trabajo y Sociedad", carrera = tuess)
 const economia = new Materia(nombre = "Economía", carrera = tuess)
 const desarrolloLocal = new Materia(nombre = "Desarrollo local", carrera = tuess)
 
-// Materias de TO (los requisitos que no dependen de otras materias se pueden pasar al instanciar)
+// Materias de TO 
 const lea = new Materia(nombre = "LEA", carrera = to, año = 1, creditos = 8)
 const cienciasSalud = new Materia(nombre = "Ciencias de la Salud", carrera = to, año = 1, creditos = 8)
 const psicologia = new Materia(nombre = "Psicología", carrera = to, año = 2, creditos = 4,
@@ -34,7 +30,7 @@ const antropologia = new Materia(nombre = "Antropología", carrera = to, año = 
 const sociologia = new Materia(nombre = "Sociología", carrera = to, año = 3, creditos = 8,
   requisito = new Creditos(minimo = 10))
 
-// Segunda fase: las correlativas referencian otras materias, así que van después
+// Segunda fase
 object planDeEstudios {
   method configurar() {
     objetos2.requisito(new Correlativas(materias = #{objetos1, mate1}))
@@ -44,41 +40,7 @@ object planDeEstudios {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 describe "Inscripción a materias" {
   const alex = new Estudiante(nombre = "Alex")
   const andy = new Estudiante(nombre = "Andy")
@@ -101,7 +63,10 @@ describe "Inscripción a materias" {
 
   }
 
-  // ---- Parte 1 ----
+
+
+//----------------------------------------------------------------------------------------------------------//
+  // Parte 1 
   test "Alex está inscripta en Programación y TUESS, pero no en TO" {
     assert.that(alex.estaInscriptoEn(programacion))
     assert.that(alex.estaInscriptoEn(tuess))
@@ -123,7 +88,10 @@ describe "Inscripción a materias" {
     )
   }
 
-  // ---- Parte 2 ----
+
+
+//----------------------------------------------------------------------------------------------------------//
+  // Parte 2 
   test "No puede registrar una materia ya aprobada" {
     assert.throwsExceptionWithMessage(
       "Ya aprobó Matemática 1",
@@ -181,7 +149,10 @@ describe "Inscripción a materias" {
     assert.equals([2, 8], alex.cursadasDe(mate1).map({ c => c.nota() }))
   }
 
-// ---- Parte 3 ----
+
+
+//----------------------------------------------------------------------------------------------------------//
+// Parte 3 
   test "Alex puede inscribirse a Objetos 2" {
     assert.that(alex.puedeInscribirseA(objetos2))
   }
@@ -222,7 +193,9 @@ describe "Inscripción a materias" {
   }
 
 
-// ---- Parte 4 ----
+
+//----------------------------------------------------------------------------------------------------------//
+//  Parte 4 
   test "Andy avanza en TO con requisitos de créditos y de año" {
     andy.inscribirseA(to)
     assert.equals(#{lea, cienciasSalud}, andy.materiasHabilitadasEn(to))
